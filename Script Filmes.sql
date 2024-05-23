@@ -325,3 +325,87 @@ REFERENCES [dbo].[Generos] ([Id])
 GO
 ALTER TABLE [dbo].[FilmesGenero] CHECK CONSTRAINT [FK__FilmesGen__IdGen__2E1BDC42]
 GO
+
+
+SELECT Nome, Ano
+FROM [dbo].[Filmes];
+GO
+
+
+
+SELECT Nome, Ano
+FROM [dbo].[Filmes]
+ORDER BY Ano ASC;
+GO
+
+
+SELECT Nome, Ano
+FROM [dbo].[Filmes]
+WHERE Nome LIKE '%Futuro%';
+
+
+SELECT Nome, Ano
+FROM [dbo].[Filmes]
+WHERE Ano LIKE '%1997%';
+
+
+SELECT Nome, Ano
+FROM [dbo].[Filmes]
+WHERE Ano = 1997;
+
+
+
+SELECT Nome, Ano
+FROM [dbo].[Filmes]
+WHERE Ano > 2000;
+GO
+
+
+SELECT Nome, Ano, Duracao
+FROM [dbo].[Filmes]
+WHERE Duracao > 100 AND Duracao < 150
+ORDER BY Ano ASC;
+GO
+
+
+
+SELECT Ano, COUNT(*) AS QuantidadeDeFilmes
+FROM [dbo].[Filmes]
+GROUP BY Ano
+ORDER BY Ano DESC;
+GO
+
+
+SELECT PrimeiroNome, UltimoNome
+FROM [dbo].[Atores]
+WHERE Genero = 'M';
+GO
+
+
+SELECT PrimeiroNome, UltimoNome, Genero
+FROM [dbo].[Atores]
+WHERE Genero = 'F'
+ORDER BY PrimeiroNome;
+GO
+
+
+SELECT F.Nome AS NomeDoFilme, G.Genero
+FROM [dbo].[Filmes] F
+INNER JOIN [dbo].[FilmesGenero] FG ON F.Id = FG.IdFilme
+INNER JOIN [dbo].[Generos] G ON FG.IdGenero = G.Id;
+GO
+
+
+SELECT F.Nome AS NomeDoFilme, G.Genero
+FROM [dbo].[Filmes] F
+INNER JOIN [dbo].[FilmesGenero] FG ON F.Id = FG.IdFilme
+INNER JOIN [dbo].[Generos] G ON FG.IdGenero = G.Id
+WHERE G.Genero = 'Mistério';
+GO
+
+
+SELECT F.Nome AS NomeDoFilme, A.PrimeiroNome, A.UltimoNome, EF.Papel
+FROM [dbo].[Filmes] F
+INNER JOIN [dbo].[ElencoFilme] EF ON F.Id = EF.IdFilme
+INNER JOIN [dbo].[Atores] A ON EF.IdAtor = A.Id;
+GO
